@@ -1,4 +1,9 @@
+import java.util.Arrays;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class Ninja{
 
@@ -9,6 +14,42 @@ public class Ninja{
     private int defensa;
     private int chakra;
     private List<String> jutsus;
+    public String toJson() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append("\"nombre\":\"").append(nombre).append("\",");
+        sb.append("\"rango\":\"").append(rango).append("\",");
+        sb.append("\"aldea\":\"").append(aldea).append("\",");
+        sb.append("\"ataque\":").append(ataque).append(",");
+        sb.append("\"defensa\":").append(defensa).append(",");
+        sb.append("\"chakra\":").append(chakra).append(",");
+        sb.append("\"jutsus\":[");
+    for (int i = 0; i < jutsus.size(); i++) {
+        sb.append("\"").append(jutsus.get(i).trim()).append("\"");
+        if (i < jutsus.size() - 1) sb.append(",");
+        }
+        sb.append("]");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    public String toXml() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<ninja>");
+        sb.append("<nombre>").append(nombre).append("</nombre>");
+        sb.append("<rango>").append(rango).append("</rango>");
+        sb.append("<aldea>").append(aldea).append("</aldea>");
+        sb.append("<ataque>").append(ataque).append("</ataque>");
+        sb.append("<defensa>").append(defensa).append("</defensa>");
+        sb.append("<chakra>").append(chakra).append("</chakra>");
+        sb.append("<jutsus>");
+        for (String jutsu : jutsus) {
+            sb.append("<jutsu>").append(jutsu.trim()).append("</jutsu>");
+        }
+        sb.append("</jutsus>");
+        sb.append("</ninja>");
+        return sb.toString();
+    }
 
     private Ninja(Builder builder) {
 
@@ -21,15 +62,6 @@ public class Ninja{
         this.jutsus= builder.jutsus;
 
     }
-
-    // ?
-    /*public String getNombre() { return nombre; }
-    public List<String> getJutsu() { return jutsus; } 
-    public String getRango() { return rango;}
-    public String getAldea() { return aldea; }
-    public int getAtaque() { return ataque; }       
-    public int getDefensa() { return defensa; }
-    public int getChakra() { return chakra; }*/
 
     public static class Builder {
 
@@ -91,13 +123,14 @@ public class Ninja{
     }
 
     public String toString() {
-        return "nombre=" + nombre +  
+        return "Ninja:" +
+                "nombre=" + nombre +  
                 ", rango=" + rango + 
                 ", aldea=" + aldea +
                 ", ataque=" + ataque +  
                 ", defensa=" + defensa +
                 ", chakra=" + chakra +
-                ", justsus=" + jutsus +
+                ", justsus='" + jutsus +
 
                 '.';
     }
@@ -116,5 +149,6 @@ public class Ninja{
 
         System.out.println(ninja);
     }
+
 
 }
