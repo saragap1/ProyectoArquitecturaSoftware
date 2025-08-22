@@ -91,14 +91,13 @@ public class Ninja{
     }
 
     public String toString() {
-        return "Ninja:" +
-                "nombre=" + nombre +  
+        return "nombre=" + nombre +  
                 ", rango=" + rango + 
                 ", aldea=" + aldea +
                 ", ataque=" + ataque +  
                 ", defensa=" + defensa +
                 ", chakra=" + chakra +
-                ", justsus='" + jutsus +
+                ", justsus=" + jutsus +
 
                 '.';
     }
@@ -117,6 +116,5 @@ public class Ninja{
 
         System.out.println(ninja);
     }
-
 
 }

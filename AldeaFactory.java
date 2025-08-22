@@ -1,18 +1,25 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 
-public class AldeaFactory {
+// clase abstracta.
+public abstract class AldeaFactory {
+
+    public abstract Ninja crearNinja();
+    
+}
 
 
-    public static void main(String a[]) {
-
-        List<String> ninjas = Arrays.asList(
-            
-        );
+       /* List<String> ninjas = new ArrayList<>(Arrays.asList());
+        List<String> ninjasKiri = new ArrayList<>(Arrays.asList());
+        List<String> ninjasKonoha = new ArrayList<>(Arrays.asList());
+        List<String> ninjasSuna = new ArrayList<>(Arrays.asList());
 
         Scanner sc = new Scanner(System.in);
+
+        
         System.out.println("\nPor favor, ingresa el número de la aldea en donde quieres crear un nuevo ninja:\n"+
             "1. Aldea Kiri\n"+
             "2. Aldea Konoha\n"+
@@ -22,8 +29,14 @@ public class AldeaFactory {
             
                 if (opcionAldea ==1){
                     KiriFactory ninjaKiri = new KiriFactory();
+                    //ninjaKiri.nombreAldea();
                     ninjaKiri.obtenerInformacionNinja();
+                    ninjasKiri.add(ninjaKiri.toString());
+                    ninjas.add(ninjaKiri.toString());
                     System.out.println("Ninja de Kiri creado exitosamente.");  
+
+                    System.out.println(ninjas);
+                    System.out.println(ninjasKiri);
                     
                 }
                 else if (opcionAldea ==2){
@@ -41,6 +54,6 @@ public class AldeaFactory {
                 }
         
         sc.close();
-    }
-}
+    }*/
+
 
