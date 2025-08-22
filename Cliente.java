@@ -14,6 +14,8 @@ public class Cliente {
         int opcionMenu = 0;
 
         while (opcionMenu != 5) {
+
+            System.out.println(ninjas);
             System.out.print("Esta es una simulación de Ninjas al estilo Naruto !!!! qué haras hoy??:\n"+
                 "1. Quiero crear un ninja personalizado\n"+
                 "2. Quiero crear un ninja según una aldea\n"+
@@ -57,33 +59,32 @@ public class Cliente {
             System.out.println("Ninja personalizado: " + ninjaPersonalizado);
             
             } else if (opcionMenu == 2){
-                //AldeaFactory.main(a);
-                        
-            /*System.out.println("\nPor favor, ingresa el número de la aldea en donde quieres crear un nuevo ninja:\n"+
-            "1. Aldea Kiri\n"+
-            "2. Aldea Konoha\n"+
-            "3. Aldea Suna\n");
+                System.out.println("\nPor favor, ingresa el número de la aldea en donde quieres crear un nuevo ninja:\n"+
+                    "1. Aldea Kiri\n"+
+                    "2. Aldea Konoha\n"+
+                    "3. Aldea Suna\n");
 
-            int opcionAldea = sc.nextInt();     
-            
-                if (opcionAldea ==1){
-                    KiriFactory ninjaKiri = new KiriFactory();
-                    ninjaKiri.obtenerInformacionNinja();
-                    System.out.println("Ninja de Kiri creado exitosamente.");   
-                }
-                else if (opcionAldea ==2){
-                    KonohaFactory ninjaKonoha = new KonohaFactory();
-                    ninjaKonoha.obtenerInformacionNinja();
-                    System.out.println("Ninja de Konoha creado exitosamente.");                        
-                }
-                else if (opcionAldea ==3){
-                    SunaFactory ninjaSuna = new SunaFactory();
-                    ninjaSuna.obtenerInformacionNinja();
-                    System.out.println("Ninja de Suna creado exitosamente.");
-                }
-                else{
+                int opcionAldea = sc.nextInt();     
+                
+                if (opcionAldea == 1){
+                    AldeaFactory ninjaKiri = new KiriFactory();
+                    ninjas.add(ninjaKiri.crearNinja());
+                    
+
+                } else if (opcionAldea == 2){
+
+                    AldeaFactory ninjaKonoha = new KonohaFactory();
+                    ninjas.add(ninjaKonoha.crearNinja());
+                                      
+                } else if (opcionAldea == 3){
+                    AldeaFactory ninjaSuna = new SunaFactory();
+                    ninjas.add(ninjaSuna.crearNinja());
+
+                } else {
+
                     System.out.println("Por favor, ingresa un número válido.");
-                } */
+                }
+                        
             } else if (opcionMenu == 3){
                 // Código para asignar una misión
             } else if (opcionMenu == 4){
@@ -117,6 +118,7 @@ public class Cliente {
 
             } else {
                 System.out.println("Por favor, ingresa un número válido.");
+                sc.close();
             }
         }
     }
