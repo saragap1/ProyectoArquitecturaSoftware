@@ -57,7 +57,7 @@ public class Cliente {
             System.out.println("Ninja personalizado: " + ninjaPersonalizado);
             
             } else if (opcionMenu == 2){
-                 AldeaFactory.main(a);
+                //AldeaFactory.main(a);
                         
             /*System.out.println("\nPor favor, ingresa el número de la aldea en donde quieres crear un nuevo ninja:\n"+
             "1. Aldea Kiri\n"+
