@@ -14,6 +14,7 @@ public class Ninja{
     private int defensa;
     private int chakra;
     private List<String> jutsus;
+
     public String toJson() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
@@ -122,6 +123,41 @@ public class Ninja{
         return new Builder();
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getRango() {
+        return rango;
+    }
+
+    public int getAtaque(){
+        return ataque;
+    }
+
+    public int getDefensa(){
+        return defensa;
+    }
+
+    public int getChakra(){
+        return chakra;
+    }
+
+    public int setAtaque(int ataque) {
+        this.ataque = ataque;
+        return this.ataque;
+    }
+
+    public int setDefensa(int defensa) {
+        this.defensa = defensa;
+        return this.defensa;
+    }
+
+    public int setChakra(int chakra) {
+        this.chakra = chakra;
+        return this.chakra;
+    }
+    
     public String toString() {
         return "Ninja:" +
                 "nombre=" + nombre +  
@@ -130,9 +166,7 @@ public class Ninja{
                 ", ataque=" + ataque +  
                 ", defensa=" + defensa +
                 ", chakra=" + chakra +
-                ", justsus='" + jutsus +
-
-                '.';
+                ", justsus=" + jutsus;
     }
   
     public static void main(String[] args) {
