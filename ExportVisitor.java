@@ -1,54 +1,85 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
-public class ExportVisitor {
-    
+public class ExportVisitor implements Visitor {
+    private String formato;
+    private BufferedWriter writer;
+    private boolean firstJson = true; // Para comas en JSON
 
-    public static void exportarNinjasTxt(List<Ninja> ninjas) {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter("ninjas.txt"))) {
-        for (Ninja ninja : ninjas) {
-            writer.write(ninja.toString());
+    public ExportVisitor(String formato, String archivo) throws IOException {
+        this.formato = formato.toLowerCase();
+        this.writer = new BufferedWriter(new FileWriter(archivo));
+
+        if (formato.equals("json")) writer.write("[\n");
+        if (formato.equals("xml")) writer.write("<ninjas>\n");
+    }
+
+    @Override
+    public void visitar(Ninja ninja) {
+        try {
+            switch (formato) {
+                case "txt":
+                    writer.write(ninja.toString());
+                    break;
+                case "json":
+                    if (!firstJson) writer.write(",\n");
+                    writer.write("  " + ninja.toJson());
+                    firstJson = false;
+                    break;
+                case "xml":
+                    writer.write("  " + ninja.toXml());
+                    break;
+                default:
+                    throw new IllegalArgumentException("Formato no soportado: " + formato);
+            }
             writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("Ninjas exportados exitosamente a ninjas.txt");
-    } catch (IOException e) {
-        System.out.println("Error al exportar los ninjas: " + e.getMessage());
     }
 
-}
-    public static void exportarNinjasJson(List<Ninja> ninjas) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("ninjas.json"))) {
-            writer.write("[\n");
-            for (int i = 0; i < ninjas.size(); i++) {
-                Ninja ninja = ninjas.get(i);
-                writer.write("  " + ninja.toJson());
-                if (i < ninjas.size() - 1) {
-                    writer.write(",");
+    public void cerrar() {
+        try {
+            if (formato.equals("json")) writer.write("\n]");
+            if (formato.equals("xml")) writer.write("</ninjas>");
+            writer.close();
+            System.out.println("✅ Ninjas exportados a formato " + formato.toUpperCase());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        java.util.List<Ninja> ninjas = new java.util.ArrayList<>();
+        // Suponiendo que 'ninjas' es una colección de objetos Ninja
+        ExportVisitor visitor = null;
+        int opcionExportar = 2; // Ejemplo: 1 para txt, 2 para json, 3 para xml
+
+        try {
+            switch (opcionExportar) {
+                case 1:
+                    visitor = new ExportVisitor("txt", "ninjas.txt");
+                    break;
+                case 2:
+                    visitor = new ExportVisitor("json", "ninjas.json");
+                    break;
+                case 3:
+                    visitor = new ExportVisitor("xml", "ninjas.xml");
+                    break;
+                default:
+                    System.out.println("❌ Opción no válida. No se exportó ningún archivo.");
+            }
+
+            if (visitor != null) {
+                for (Ninja n : ninjas) {
+                    n.aceptar(visitor);
                 }
-                writer.newLine();
+                visitor.cerrar();
+                System.out.println("Ninjas exportados correctamente.");
             }
-            writer.write("\n]");
-            System.out.println("Ninjas exportados exitosamente a ninjas.json");
         } catch (IOException e) {
-            System.out.println("Error al exportar los ninjas: " + e.getMessage());
+            System.out.println("Ocurrió un error al exportar los ninjas: " + e.getMessage());
         }
     }
-
-    public static void exportarNinjasXml(List<Ninja> ninjas) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("ninjas.xml"))) {
-            writer.write("<ninjas>\n");
-            for (Ninja ninja : ninjas) {
-                writer.write("  " + ninja.toXml());
-                writer.newLine();
-            }
-            writer.write("</ninjas>");
-            System.out.println("Ninjas exportados exitosamente a ninjas.xml");
-        } catch (IOException e) {
-            System.out.println("Error al exportar los ninjas: " + e.getMessage());
-        }
-    }
-
 }
-

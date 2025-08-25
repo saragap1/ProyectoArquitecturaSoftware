@@ -33,7 +33,6 @@ public class Cliente {
             } else if (opcionMenu == 2){
                 CrearNinjaSegunAldea();
             } else if (opcionMenu == 3){
-                
                 if (ninjas.isEmpty()) {
                     System.out.println("No hay ninjas disponibles para asignar una misión. Crea un ninja primero.");
                 } else {
@@ -43,53 +42,61 @@ public class Cliente {
                     }
 
                     int numeroNinja = sc.nextInt();
-                    Ninja ninjaSeleccionado = ninjas.get(numeroNinja - 1);
-                    hacerMision(ninjaSeleccionado);
-
-                    
                     if (numeroNinja < 1 || numeroNinja > ninjas.size()) {
                         System.out.println("Número de ninja no válido.");
                         continue;
                     }
-            }
-
+                    Ninja ninjaSeleccionado = ninjas.get(numeroNinja - 1);
+                    hacerMision(ninjaSeleccionado);
+                }
             } else if (opcionMenu == 4){
                 Combate.simularCombate(ninjas);
-            } else if (opcionMenu == 5){
-                System.out.println("¿En qué formato deseas exportar los ninjas?");
-                System.out.println("1. TXT");
-                System.out.println("2. JSON");
-                System.out.println("3. XML");
-                System.out.print("Selecciona una opción: ");
-                int opcionExportar = sc.nextInt();
-                sc.nextLine(); 
+            } else if (opcionMenu == 5) {
+                if (ninjas.isEmpty()) {
+                    System.out.println("No hay ninjas para exportar.");
+                } else {
+                    System.out.println("¿En qué formato deseas exportar los ninjas?");
+                    System.out.println("1. TXT");
+                    System.out.println("2. JSON");
+                    System.out.println("3. XML");
+                    System.out.print("Selecciona una opción: ");
+                    int opcionExportar = sc.nextInt();
+                    sc.nextLine();
 
-            switch (opcionExportar) {
-                case 1:
-                    ExportVisitor.exportarNinjasTxt(ninjas); // Asumiendo que ya tienes este método para TXT
-                    System.out.println("Ninjas exportados en formato TXT.");
-                    break;
-                case 2:
-                    ExportVisitor.exportarNinjasJson(ninjas); // Implementa este método
-                    System.out.println("Ninjas exportados en formato JSON.");
-                    break;
-                case 3:
-                    ExportVisitor.exportarNinjasXml(ninjas); // Implementa este método
-                    System.out.println("Ninjas exportados en formato XML.");
-                    break;
-                default:
-                    System.out.println("Opción no válida. No se exportó ningún archivo.");
-            }
-            System.out.println("¡Hasta luego!");
+                    ExportVisitor visitor = null;
 
-            } else {
-                System.out.println("Por favor, ingresa un número válido.");
-                sc.close();
+                    try {
+                        switch (opcionExportar) {
+                            case 1:
+                                visitor = new ExportVisitor("txt", "ninjas.txt");
+                                break;
+                            case 2:
+                                visitor = new ExportVisitor("json", "ninjas.json");
+                                break;
+                            case 3:
+                                visitor = new ExportVisitor("xml", "ninjas.xml");
+                                break;
+                            default:
+                                System.out.println("❌ Opción no válida. No se exportó ningún archivo.");
+                        }
+
+                        if (visitor != null) {
+                            for (Ninja n : ninjas) {
+                                n.aceptar(visitor);
+                            }
+                            visitor.cerrar();
+                            System.out.println("Ninjas exportados correctamente.");
+                        }
+                    } catch (java.io.IOException e) {
+                        System.out.println("Ocurrió un error al exportar los ninjas: " + e.getMessage());
+                    }
+                }
+                System.out.println("👋 ¡Hasta luego!");
+                break; 
             }
         }
-
-
     }
+
 
     private static void crearNinjaPersonalizado() {
         sc.nextLine();
@@ -209,7 +216,7 @@ public class Cliente {
     }
 
 }
-    
 
 
-        
+
+

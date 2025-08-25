@@ -157,6 +157,14 @@ public class Ninja{
         this.chakra = chakra;
         return this.chakra;
     }
+
+    public List<String> getJutsus() {
+        return jutsus;
+    }
+
+    public void aceptar(Visitor visitor) {
+        visitor.visitar(this);
+    }
     
     public String toString() {
         return "Ninja:" +
@@ -166,6 +174,6 @@ public class Ninja{
                 ", ataque=" + ataque +  
                 ", defensa=" + defensa +
                 ", chakra=" + chakra +
-                ", justsus=" + jutsus;
+                ", jutsus=" + jutsus;
     }
 }
