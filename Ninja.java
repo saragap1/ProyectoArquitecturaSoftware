@@ -13,7 +13,7 @@ public class Ninja{
     private int ataque;
     private int defensa;
     private int chakra;
-    private List<String> jutsus;
+    public List<String> jutsus;
 
     public String toJson() {
         StringBuilder sb = new StringBuilder();
@@ -168,21 +168,4 @@ public class Ninja{
                 ", chakra=" + chakra +
                 ", justsus=" + jutsus;
     }
-  
-    public static void main(String[] args) {
-        Ninja ninja = Ninja.builder()
-                .nombre("Naruto")
-                .rango("Hokage")
-                .aldea("Konoha")
-                .ataque(100)
-                .defensa(80)
-                .chakra(120)
-                .jutsus("Rasengan","Shadow Clone Jutsu")
-                
-                .build();
-
-        System.out.println(ninja);
-    }
-
-
 }

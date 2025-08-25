@@ -54,7 +54,7 @@ public class Cliente {
             }
 
             } else if (opcionMenu == 4){
-                // Código para simular un combate
+                Combate.simularCombate(ninjas);
             } else if (opcionMenu == 5){
                 System.out.println("¿En qué formato deseas exportar los ninjas?");
                 System.out.println("1. TXT");
