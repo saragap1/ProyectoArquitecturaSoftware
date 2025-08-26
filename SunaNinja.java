@@ -16,9 +16,9 @@ public class SunaNinja implements NinjaSegunAldea {
    );
 
    public Ninja obtenerInformacionNinja() {
-      System.out.println("Por favor, ingresa el nombre del ninja:");
+      System.out.println("Por favor, ingresa el nombre del ninja: ");
       String nombre = sc.nextLine(); 
-      System.out.println("Por favor, ingresa el rango del ninja:");
+      System.out.println("Por favor, ingresa el rango del ninja: ");
       String rango = sc.nextLine(); 
       Ninja ninjaSuna = new Ninja.Builder()
                 .nombre(nombre)

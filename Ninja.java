@@ -1,8 +1,4 @@
-import java.util.Arrays;
 import java.util.List;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 public class Ninja{
@@ -13,43 +9,8 @@ public class Ninja{
     private int ataque;
     private int defensa;
     private int chakra;
-    private List<String> jutsus;
-    public String toJson() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("\"nombre\":\"").append(nombre).append("\",");
-        sb.append("\"rango\":\"").append(rango).append("\",");
-        sb.append("\"aldea\":\"").append(aldea).append("\",");
-        sb.append("\"ataque\":").append(ataque).append(",");
-        sb.append("\"defensa\":").append(defensa).append(",");
-        sb.append("\"chakra\":").append(chakra).append(",");
-        sb.append("\"jutsus\":[");
-    for (int i = 0; i < jutsus.size(); i++) {
-        sb.append("\"").append(jutsus.get(i).trim()).append("\"");
-        if (i < jutsus.size() - 1) sb.append(",");
-        }
-        sb.append("]");
-        sb.append("}");
-        return sb.toString();
-    }
+    public List<String> jutsus;
 
-    public String toXml() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<ninja>");
-        sb.append("<nombre>").append(nombre).append("</nombre>");
-        sb.append("<rango>").append(rango).append("</rango>");
-        sb.append("<aldea>").append(aldea).append("</aldea>");
-        sb.append("<ataque>").append(ataque).append("</ataque>");
-        sb.append("<defensa>").append(defensa).append("</defensa>");
-        sb.append("<chakra>").append(chakra).append("</chakra>");
-        sb.append("<jutsus>");
-        for (String jutsu : jutsus) {
-            sb.append("<jutsu>").append(jutsu.trim()).append("</jutsu>");
-        }
-        sb.append("</jutsus>");
-        sb.append("</ninja>");
-        return sb.toString();
-    }
 
     private Ninja(Builder builder) {
 
@@ -122,6 +83,49 @@ public class Ninja{
         return new Builder();
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getRango() {
+        return rango;
+    }
+
+    public int getAtaque(){
+        return ataque;
+    }
+
+    public int getDefensa(){
+        return defensa;
+    }
+
+    public int getChakra(){
+        return chakra;
+    }
+
+    public int setAtaque(int ataque) {
+        this.ataque = ataque;
+        return this.ataque;
+    }
+
+    public int setDefensa(int defensa) {
+        this.defensa = defensa;
+        return this.defensa;
+    }
+
+    public int setChakra(int chakra) {
+        this.chakra = chakra;
+        return this.chakra;
+    }
+
+    public List<String> getJutsus() {
+        return jutsus;
+    }
+
+    public void aceptar(Visitor visitor) {
+        visitor.visitar(this);
+    }
+    
     public String toString() {
         return "Ninja:" +
                 "nombre=" + nombre +  
@@ -130,25 +134,42 @@ public class Ninja{
                 ", ataque=" + ataque +  
                 ", defensa=" + defensa +
                 ", chakra=" + chakra +
-                ", justsus='" + jutsus +
-
-                '.';
+                ", jutsus=" + jutsus;
     }
-  
-    public static void main(String[] args) {
-        Ninja ninja = Ninja.builder()
-                .nombre("Naruto")
-                .rango("Hokage")
-                .aldea("Konoha")
-                .ataque(100)
-                .defensa(80)
-                .chakra(120)
-                .jutsus("Rasengan","Shadow Clone Jutsu")
-                
-                .build();
-
-        System.out.println(ninja);
+    public String toJson() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append("\"nombre\":\"").append(nombre).append("\",");
+        sb.append("\"rango\":\"").append(rango).append("\",");
+        sb.append("\"aldea\":\"").append(aldea).append("\",");
+        sb.append("\"ataque\":").append(ataque).append(",");
+        sb.append("\"defensa\":").append(defensa).append(",");
+        sb.append("\"chakra\":").append(chakra).append(",");
+        sb.append("\"jutsus\":[");
+    for (int i = 0; i < jutsus.size(); i++) {
+        sb.append("\"").append(jutsus.get(i).trim()).append("\"");
+        if (i < jutsus.size() - 1) sb.append(",");
+        }
+        sb.append("]");
+        sb.append("}");
+        return sb.toString();
     }
 
-
+    public String toXml() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<ninja>");
+        sb.append("<nombre>").append(nombre).append("</nombre>");
+        sb.append("<rango>").append(rango).append("</rango>");
+        sb.append("<aldea>").append(aldea).append("</aldea>");
+        sb.append("<ataque>").append(ataque).append("</ataque>");
+        sb.append("<defensa>").append(defensa).append("</defensa>");
+        sb.append("<chakra>").append(chakra).append("</chakra>");
+        sb.append("<jutsus>");
+        for (String jutsu : jutsus) {
+            sb.append("<jutsu>").append(jutsu.trim()).append("</jutsu>");
+        }
+        sb.append("</jutsus>");
+        sb.append("</ninja>");
+        return sb.toString();
+    }
 }

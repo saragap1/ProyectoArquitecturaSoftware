@@ -1,7 +1,3 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
 public class KiriFactory extends AldeaFactory {
 
    @Override
@@ -9,7 +5,5 @@ public class KiriFactory extends AldeaFactory {
       // TODO Auto-generated method stub
       return new KiriNinja().obtenerInformacionNinja();
    }
-
-   
 
 }  

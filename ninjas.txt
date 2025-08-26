@@ -1,0 +1,1 @@
+Ninja:nombre=asdas, rango=ads, aldea=Kiri, ataque=90, defensa=70, chakra=100, jutsus=[Justsu 0 de Kiri, Jutsu 1 de Kiri]
