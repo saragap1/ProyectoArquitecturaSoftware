@@ -63,28 +63,30 @@ public class Cliente {
                     int opcionExportar = sc.nextInt();
                     sc.nextLine();
 
-                    ExportVisitor visitor = null;
+                    Visitor visitor = null;
 
                     try {
                         switch (opcionExportar) {
                             case 1:
-                                visitor = new ExportVisitor("txt", "ninjas.txt");
+                                visitor = new TxtExportVisitor("ninjas.txt");
                                 break;
                             case 2:
-                                visitor = new ExportVisitor("json", "ninjas.json");
+                                visitor = new JsonExportVisitor("ninjas.json");
                                 break;
                             case 3:
-                                visitor = new ExportVisitor("xml", "ninjas.xml");
+                                visitor = new XmlExportVisitor("ninjas.xml");
                                 break;
                             default:
                                 System.out.println("❌ Opción no válida. No se exportó ningún archivo.");
                         }
 
                         if (visitor != null) {
-                            for (Ninja n : ninjas) {
-                                n.aceptar(visitor);
+                            for (Ninja ninja : ninjas) {
+                                ninja.aceptar(visitor);
                             }
-                            visitor.cerrar();
+                            if (visitor instanceof TxtExportVisitor) ((TxtExportVisitor) visitor).cerrar();
+                            if (visitor instanceof JsonExportVisitor) ((JsonExportVisitor) visitor).cerrar();
+                            if (visitor instanceof XmlExportVisitor) ((XmlExportVisitor) visitor).cerrar();
                             System.out.println("Ninjas exportados correctamente.");
                         }
                     } catch (java.io.IOException e) {
